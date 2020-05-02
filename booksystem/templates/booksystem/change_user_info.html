@@ -1,0 +1,149 @@
+{% extends 'booksystem/base.html' %}
+{% load staticfiles %}
+{% block login_display %}
+    <a href="#">欢迎您 {{ username }} </a>
+{% endblock %}
+{% block style %}
+    <style>
+        /*通用样式*/
+        ul, h3, p, table, body {
+            padding: 0;
+            margin: 0;
+        }
+
+
+        ul {
+            list-style-type: none;
+        }
+
+
+        a {
+            text-decoration: none;
+        }
+
+        input {
+            line-height: normal;
+        }
+
+        /*通用样式结束*/
+        .main_con {
+            width: 1140px;
+            margin: 20px auto;
+            overflow: hidden;
+        }
+
+        .left_menu_con {
+            width: 200px;
+            float: left;
+        }
+
+        .left_menu_con h3 {
+            font-size: 18px;
+            line-height: 40px;
+            border-bottom: 2px solid #000;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .left_menu_con ul li {
+            line-height: 40px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .left_menu_con ul li a {
+            color: #666;
+        }
+
+        .left_menu_con ul li .active {
+            color: #ac2925;
+            font-weight: bold;
+        }
+
+        .right_content {
+            width: 900px;
+            float: right;
+            min-height: 600px;
+        }
+
+        .info_con {
+            width: 980px;
+        }
+
+        .common_title2 {
+            height: 20px;
+            line-height: 20px;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        .user_info_list {
+            background-color: #f9f9f9;
+            margin: 10px 0 15px;
+            padding: 10px 0;
+            height: 570px;
+
+        }
+
+        .user_info_list li {
+            line-height: 30px;
+            text-indent: 30px;
+            font-size: 14px;
+        }
+
+        .user_info_list li span {
+            width: 100px;
+            float: left;
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="main_con">
+        <div class="left_menu_con">
+            <h3>用户中心</h3>
+            <ul>
+                <li><a href="{% url 'booksystem:user_info' %}" class="active"> 个人信息</a></li>
+                <li><a href="{% url 'booksystem:user_change' %}" class="active">· 修改信息</a></li>
+                <li><a href="{% url 'booksystem:order_info' %}" class="active"> 已购航班</a></li>
+                <li><a href="{% url 'booksystem:score' %}" class="active"> 积分查询</a></li>
+            </ul>
+        </div>
+        <div class="right_content">
+            <div class="info_con">
+                <h3 class="common_title2">基本信息</h3>
+                <form action="/user_change/" method="post">
+                    {% csrf_token %}
+                    <ul class="user_info_list">
+                        <li><span>姓名：</span><input name="name"
+                                                   value="{% if user_info.name %}{{ user_info.name }}{% endif %}"
+                                                   type="text"></li>
+                        <li><span>英文名：</span><input name="nickname" value="
+                                {% if user_info.nickname %}{{ user_info.nickname }}{% endif %}" type="text"></li>
+                        <li><span>性别：</span>
+                            <select name="sex" id="">
+                                <option value="男">男</option>
+                                <option value="女">女</option>
+                            </select></li>
+                        {#                        <li><span>性别：</span><input name="sex" {% if user_info.sex %}readonly{% endif %} value="{{ user_info.sex }}" type="text"></li>#}
+                        <li><span>年龄：</span><input name="age"
+                                                   value="{% if user_info.age %}{{ user_info.age }}{% endif %}"
+                                                   type="text"></li>
+                        <li><span>手机号码：</span><input name="phone"
+                                                     value="{% if user_info.phone %}{{ user_info.phone }}{% endif %}"
+                                                     type="text"></li>
+                        <li><span>身份证号：</span><input name="sfz" {% if user_info.sfz %}readonly{% endif %}
+                                                     value="{% if user_info.sfz %}{{ user_info.sfz }}{% endif %}"
+                                                     type="text"></li>
+                        <li><span>.</span><input type="submit" value="保存" id="save_btn"></li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        $('#save_btn').on('click', function () {
+            alert("保存成功! ")
+        })
+    </script>
+{% endblock %}

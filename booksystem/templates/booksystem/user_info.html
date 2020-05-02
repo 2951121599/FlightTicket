@@ -1,0 +1,178 @@
+{% extends 'booksystem/base.html' %}
+{% load staticfiles %}
+{% block login_display %}
+    <a href="#">欢迎您 {{ username }} </a>
+{% endblock %}
+{% block style %}
+    <style>
+        /*通用样式*/
+        ul, h3, p, table, body {
+            padding: 0;
+            margin: 0;
+        }
+
+
+        ul {
+            list-style-type: none;
+        }
+
+
+        a {
+            text-decoration: none;
+        }
+
+        input {
+            line-height: normal;
+        }
+
+        .main_con {
+            width: 1140px;
+            margin: 20px auto;
+            overflow: hidden;
+        }
+
+        .left_menu_con {
+            width: 200px;
+            float: left;
+        }
+
+        .left_menu_con h3 {
+            font-size: 18px;
+            line-height: 40px;
+            border-bottom: 2px solid #000;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .left_menu_con ul li {
+            line-height: 40px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .left_menu_con ul li a {
+            color: #666;
+        }
+
+        .left_menu_con ul li .active {
+            color: #ac2925;
+            font-weight: bold;
+        }
+
+        .right_content {
+            width: 900px;
+            float: right;
+            min-height: 600px;
+        }
+
+        .info_con {
+            width: 980px;
+        }
+
+        .common_title2 {
+            height: 20px;
+            line-height: 20px;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        .user_info_list {
+            background-color: #f9f9f9;
+            margin: 10px 0 15px;
+            padding: 10px 0;
+            height: 570px;
+
+        }
+
+        .user_info_list p {
+            line-height: 30px;
+            text-indent: 30px;
+            font-size: 14px;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .user_info_list p #alter_a {
+            display: inline-block;
+            width: 100px;
+            font-size: 20px;
+            border: 1px black solid;
+            border-radius: 5px;
+            padding: 2px;
+            color: #eee;
+            background-color: dimgrey;
+        }
+
+        .user_info_list p .span1 {
+            width: 100px;
+            float: left;
+            text-align: left;
+        }
+
+        .user_info_list p .span2 {
+            display: inline-block;
+            width: 500px;
+            float: left;
+            text-align: left;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="main_con">
+        <div class="left_menu_con">
+            <h3>用户中心</h3>
+            <ul>
+                <li><a href="{% url 'booksystem:user_info' %}" class="active">· 个人信息</a></li>
+                <li><a href="{% url 'booksystem:user_change' %}" class="active"> 修改信息</a></li>
+                <li><a href="{% url 'booksystem:order_info' %}" class="active"> 已购航班</a></li>
+                <li><a href="{% url 'booksystem:score' %}" class="active"> 积分查询</a></li>
+            </ul>
+        </div>
+        <div class="right_content">
+            <div class="info_con">
+                <h3 class="common_title2">基本信息</h3>
+                <div class="user_info_list">
+                    <p>
+                        <span class="span1">用户名：</span><span class="span2">{{ username }}</span>
+                    </p>
+                    <p>
+                        <span class="span1">姓名：</span><span class="span2">
+                        {% if user_info.name %}
+                            {{ user_info.name }}
+                        {% endif %}</span>
+                    </p>
+                    <p>
+                        <span class="span1">性别：</span><span class="span2">{{ user_info.sex }}</span>
+                    </p>
+                    <p>
+                        <span class="span1">年龄：</span><span class="span2">
+                        {% if user_info.age %}
+                            {{ user_info.age }}
+                        {% endif %}</span>
+                    </p>
+                    <p>
+                        <span class="span1">英文名：</span><span class="span2">
+                        {% if user_info.nickname %}
+                            {{ user_info.nickname }}
+                        {% endif %}</span>
+                    </p>
+                    <p>
+                        <span class="span1">手机号码：</span><span class="span2">
+                        {% if user_info.phone %}
+                            {{ user_info.phone }}
+                        {% endif %}</span>
+                    </p>
+                    <p>
+                        <span class="span1">邮箱：</span><span class="span2">{{ email }}</span>
+                    </p>
+                    <p>
+                        <span class="span1">身份证号：</span><span class="span2">
+                        {% if user_info.sfz %}
+                            {{ user_info.sfz }}
+                        {% endif %}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
